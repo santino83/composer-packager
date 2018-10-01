@@ -1,0 +1,10 @@
+## YAML Template.
+---
+
+composer: ./composer.json
+name: test-name
+repositories:
+    ARTIFACTORY:
+        endpoint: https://api.endpoint.it
+        username: AN_USERNAME
+        password: A_PASSWORD

@@ -1,0 +1,49 @@
+{
+  "name": "santino83/composer-packager",
+  "description": "Utility to create a composer package ready to be deployed into repositories like JFrog Artifactory",
+  "type": "project",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Giorgio M. Santini",
+      "email": "giorgiom.santini@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+      "Santino83\\": "lib/"
+    }
+  },
+  "require": {
+    "php": ">=7.1",
+    "symfony/console": "^4.1",
+    "gitonomy/gitlib": "^1.0",
+    "guzzlehttp/guzzle": "^6.3",
+    "symfony/config": "^4.1",
+    "symfony/yaml": "^4.1",
+    "composer/composer": "^1.7"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.2"
+  },
+  "extra": {
+    "phar-builder": {
+      "compression": "GZip",
+      "name": "packager.phar",
+      "output-dir": "bin",
+      "entry-point": "./lib/bin/entry-point.php",
+      "include": [],
+      "include-dev": false,
+      "events": {
+        "coomand.package.start": [
+          "rm -f bin/packager*"
+        ],
+        "command.package.end": [
+          "chmod +x bin/packager.phar",
+          "mv -f bin/packager.phar bin/packager"
+        ]
+      }
+    }
+  }
+}

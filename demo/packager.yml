@@ -1,0 +1,9 @@
+
+packager:
+  composer: ./composer.json
+  name: ~
+  repositories:
+    ARTIFACTORY:
+      endpoint: ~
+      username: ~
+      password: ~
