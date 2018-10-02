@@ -20,7 +20,5 @@
 /nbproject/
 *.log
 **/.directory
-/bin
-!/bin/.keepme
 /packager.yml
 /tests/env.php

@@ -31,7 +31,7 @@ class CheckExcludesCommand extends BaseCommand
      */
     protected $defaults = [
         "/.*",
-        "!/.gitignore",
+        "/.gitignore",
         "/vendor",
         "/tests",
         "/composer.lock",

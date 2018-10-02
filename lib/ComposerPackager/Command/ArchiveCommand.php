@@ -46,8 +46,8 @@ class ArchiveCommand extends BaseCommand
         $checkExcludesCommand->run($argv, $output);
 
         $archiver = $this->getArchiver();
-        $archiver->archive($this->getConfig());
-        $this->getIo()->write('<info>Archive created</info>', true);
+        $archive = $archiver->archive($this->getConfig());
+        $this->getIo()->write('<info>Archive created at '.$archive->getPath().'</info>', true);
     }
 
     /**

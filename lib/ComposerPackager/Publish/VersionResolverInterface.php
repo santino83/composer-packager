@@ -6,7 +6,7 @@
  * Time: 13.47
  */
 
-namespace Santino83\ComposerPackager\Version;
+namespace Santino83\ComposerPackager\Publish;
 
 
 interface VersionResolverInterface

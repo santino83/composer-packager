@@ -129,7 +129,7 @@ class ConsoleLogger implements LoggerInterface
      */
     public function info($message, array $context = array())
     {
-        $this->doLog($this->formatMessage('<info>$s</info>',$message,$context), IOInterface::NORMAL);
+        $this->doLog($this->formatMessage('<info>%s</info>',$message,$context), IOInterface::NORMAL);
     }
 
     /**

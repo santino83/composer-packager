@@ -27,6 +27,7 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('composer')->defaultValue('./composer.json')->end()
                     ->scalarNode('name')->defaultNull()->end() //override name in composer.json
                     ->scalarNode('version')->defaultNull()->end() //override version in composer.json
+                    ->booleanNode('dev')->defaultFalse()->end() //override is dev in composer.json
                     ->enumNode('archive-format')->defaultValue('zip')->values(['zip','tar'])->cannotBeEmpty()->end()
                 ->end()
                 ->fixXmlConfig('repository')
