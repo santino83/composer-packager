@@ -16,16 +16,16 @@
     }
   },
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.2",
     "symfony/console": "^4.1",
     "gitonomy/gitlib": "^1.0",
     "guzzlehttp/guzzle": "^6.3",
     "symfony/config": "^4.1",
     "symfony/yaml": "^4.1",
     "composer/composer": "^1.7"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^7.2"
   },
   "bin": [
     "bin/packager"

@@ -67,13 +67,11 @@ class PublishCommand extends BaseCommand
         $version = $versionResolver->resolve($config);
         $archive = $archiver->archive($config);
 
-        $question = sprintf('<question>Publish package as %s at %s (%s version)? (Y/n)</question> ',$name, $version, $config['dev'] ? 'development' : 'no development');
-        if(false === $io->askConfirmation($question, true))
+        if(!$this->isUseDefaults())
         {
-            $config['name'] = $name = $this->askForName($name);
-            $config['version'] = $version = $this->askForVersion($version);
-            $config['dev'] = $this->askForIsDev($config['dev']);
-            $this->setConfig($config);
+            $config = $this->askForConfirmation($io, $name, $version, $config['dev']);
+            $name = $config['name'];
+            $version = $config['version'];
         }
 
         $this->logger->debug("Publish $name at version $version (".($config['dev'] ? 'dev' : 'prod').')');
@@ -101,6 +99,29 @@ class PublishCommand extends BaseCommand
         }
 
         $io->write('<info>Done!</info>');
+    }
+
+    /**
+     * @param IOInterface $io
+     * @param string $name
+     * @param string $version
+     * @param bool $isDev
+     * @return array
+     * @throws \Exception
+     */
+    private function askForConfirmation(IOInterface $io, string $name, string $version, bool $isDev = false): array
+    {
+        $question = sprintf('<question>Publish package as %s at %s (%s version)? (Y/n)</question> ',$name, $version, $isDev ? 'development' : 'no development');
+        if(false === $io->askConfirmation($question, true))
+        {
+            $config = $this->getConfig();
+            $config['name'] = $this->askForName($name);
+            $config['version'] = $this->askForVersion($version);
+            $config['dev'] = $this->askForIsDev($config['dev']);
+            $this->setConfig($config);
+        }
+
+        return $this->getConfig();
     }
 
     /**

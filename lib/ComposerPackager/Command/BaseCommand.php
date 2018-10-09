@@ -42,6 +42,16 @@ abstract class BaseCommand extends Command
     protected $logger;
 
     /**
+     * @var bool
+     */
+    protected $useDefaults = false;
+
+    /**
+     * @var bool
+     */
+    private $useDefaultsProcessed = false;
+
+    /**
      * @inheritDoc
      */
     protected function initialize(InputInterface $input, OutputInterface $output)
@@ -155,10 +165,36 @@ abstract class BaseCommand extends Command
 
     /**
      * @param LoggerInterface $logger
+     * @return BaseCommand
      */
-    public function setLogger(LoggerInterface $logger): void
+    public function setLogger(LoggerInterface $logger): BaseCommand
     {
         $this->logger = $logger;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUseDefaults(): bool
+    {
+        if(false === $this->useDefaultsProcessed)
+        {
+            $this->setUseDefaults(($this->getApplication() instanceof Packager) ? $this->getApplication()->isUseDefaults() : false);
+        }
+
+        return $this->useDefaults;
+    }
+
+    /**
+     * @param bool $useDefaults
+     * @return BaseCommand
+     */
+    public function setUseDefaults(bool $useDefaults): BaseCommand
+    {
+        $this->useDefaults = $useDefaults;
+        $this->useDefaultsProcessed = true;
+        return $this;
     }
 
 }

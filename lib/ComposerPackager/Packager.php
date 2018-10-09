@@ -54,6 +54,11 @@ $$ |      $$ |  $$ |\$$$$$$  |$$ | \$$\ $$ |  $$ |\$$$$$$  |$$$$$$$$\ $$ |  $$ |
     protected $logger;
 
     /**
+     * @var bool 
+     */
+    protected $useDefaults = false;
+
+    /**
      * Application constructor.
      */
     public function __construct()
@@ -89,6 +94,7 @@ $$ |      $$ |  $$ |\$$$$$$  |$$ | \$$\ $$ |  $$ |\$$$$$$  |$$$$$$$$\ $$ |  $$ |
             $io->writeError('Changed CWD to ' . getcwd(), true, IOInterface::DEBUG);
         }
 
+        $this->useDefaults = $input->hasParameterOption(['--use-defaults','-U'], false);
         $this->loadConfiguration($input);
 
         try {
@@ -159,6 +165,14 @@ $$ |      $$ |  $$ |\$$$$$$  |$$ | \$$\ $$ |  $$ |\$$$$$$  |$$$$$$$$\ $$ |  $$ |
     }
 
     /**
+     * @return bool
+     */
+    public function isUseDefaults(): bool
+    {
+        return $this->useDefaults;
+    }
+
+    /**
      * @inheritDoc
      */
     protected function getDefaultCommands()
@@ -178,6 +192,7 @@ $$ |      $$ |  $$ |\$$$$$$  |$$ | \$$\ $$ |  $$ |\$$$$$$  |$$$$$$$$\ $$ |  $$ |
         $definition = parent::getDefaultInputDefinition();
         $definition->addOption(new InputOption('--working-dir', '-d', InputOption::VALUE_REQUIRED, 'If specified, use the given directory as working directory.'));
         $definition->addOption(new InputOption('--config', '-c', InputOption::VALUE_REQUIRED, 'If specified, use the given directory to looking for packager.yml.'));
+        $definition->addOption(new InputOption('--use-default', '-U', InputOption::VALUE_NONE,'Use default values (default: false)'));
 
         return $definition;
     }
